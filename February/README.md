@@ -133,3 +133,37 @@ public:
     }
 };
 ```
+
+## 5)  [Check if One String Swap Can Make Strings Equal](https://leetcode.com/problems/check-if-one-string-swap-can-make-strings-equal/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Easy-green?style=for-the-badge)
+
+### Related Topic
+
+`Hash Table` `String` `Counting`
+
+### code
+```cpp
+class Solution {
+public:
+    bool areAlmostEqual(string s1, string s2) {
+        if (s1 == s2)
+            return true;
+        int in_place = 0, n = s1.size();
+        vector<int> freq1(26), freq2(26);
+        for (int i = 0; i < n; i++) {
+            freq1[s1[i] - 'a']++;
+            freq2[s2[i] - 'a']++;
+            if (s1[i] == s2[i])
+                in_place++;
+        }
+        if (s1 == s2)
+            return true;
+        if (freq1 != freq2)
+            return false;
+        return in_place == n - 2;
+    }
+};
+```
