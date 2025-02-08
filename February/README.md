@@ -167,3 +167,112 @@ public:
     }
 };
 ```
+
+## 6)  [Tuple with Same Product](https://leetcode.com/problems/tuple-with-same-product/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Medium-orange?style=for-the-badge)
+
+### Related Topic
+`Array` `Hash Table` `Counting`
+
+### code
+```cpp
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& nums) {
+        unordered_map<int, int> mul;
+        int n = nums.size();
+        int ans = 0;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; j++) {
+                ans+= 8 * mul[nums[i]*nums[j]];
+                mul[nums[i] * nums[j]]++;
+            }
+        }
+        return ans;
+    }
+};
+```
+
+
+## 7)  [Find the Number of Distinct Colors Among the Balls](https://leetcode.com/problems/find-the-number-of-distinct-colors-among-the-balls/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Medium-orange?style=for-the-badge)
+
+### Related Topic
+`Array` `Hash Table` `Simulation`
+### code
+```cpp
+static auto init = []() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  return nullptr;
+}();
+
+class Solution {
+public:
+  vector<int> queryResults(int limit, vector<vector<int>>& queries) {
+    auto ball_to_color = unordered_map<int, int>{};
+    auto color_counts = unordered_map<int, int>{};
+    auto num_colors = 0;
+    auto result = vector<int>{};
+    result.reserve(size(queries));
+    for (const auto& query : queries) {
+      auto [ball, color] = make_pair(query[0], query[1]);
+      auto& color_assignment = ball_to_color[ball];
+      if (color_assignment) {
+        if (--color_counts[color_assignment] == 0) --num_colors;
+      }
+      color_assignment = color;
+      if (++color_counts[color] == 1) ++num_colors;
+      result.push_back(num_colors);
+    }
+    return result;
+  }
+};
+```
+
+## 8)  [Design a Number Container System](https://leetcode.com/problems/design-a-number-container-system/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Medium-orange?style=for-the-badge)
+
+### Related Topic
+`Hash Table` `Design` `Heap (Priority Queue)` `Ordered Set`
+### code
+```cpp
+class NumberContainers {
+public:
+    unordered_map<int, priority_queue<int, vector<int>, greater<int>>> res;
+    unordered_map<int, int> index_val;
+
+    void change(int index, int number) {
+        if (index_val.count(index)) {
+            int prevNum = index_val[index];
+            if (prevNum == number) return;
+            res[prevNum].push(INT_MAX);
+        }
+        res[number].push(index);
+        index_val[index] = number;
+    }
+
+    int find(int number) {
+        while (!res[number].empty() && index_val[res[number].top()] != number) {
+            res[number].pop();
+        }
+        return res[number].empty() ? -1 : res[number].top();
+    }
+};
+
+/**
+ * Your NumberContainers object will be instantiated and called as such:
+ * NumberContainers* obj = new NumberContainers();
+ * obj->change(index,number);
+ * int param_2 = obj->find(number);
+ */
+```
