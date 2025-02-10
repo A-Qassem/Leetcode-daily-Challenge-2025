@@ -1,3 +1,20 @@
+<!--
+## 1)  []()
+
+### Difficulty
+
+![](https://img.shields.io/badge/Easy-green?style=for-the-badge)
+
+### Related Topic
+
+``
+
+### Code
+
+```cpp
+
+```
+-->
 # LeetCode Daily Challenge Problems for February
 
 ## Problems:
@@ -275,4 +292,72 @@ public:
  * obj->change(index,number);
  * int param_2 = obj->find(number);
  */
+```
+
+## 9)  [Count Number of Bad Pairs](https://leetcode.com/problems/count-number-of-bad-pairs/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Medium-orange?style=for-the-badge)
+
+### Related Topic
+
+`Array` `Hash Table` `Math` `Counting`
+
+### Code
+
+```cpp
+class Solution {
+public:
+    long long countBadPairs(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        long long goodPairs = 0, n = nums.size();
+        
+        for (int i = 0; i < n; i++) {
+            int key = nums[i] - i;
+            goodPairs += freq[key];
+            freq[key]++;
+        }
+        
+        return (n * (n - 1)) / 2 - goodPairs;
+    }
+};
+```
+
+## 10)  [Clear Digits](https://leetcode.com/problems/clear-digits/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Easy-green?style=for-the-badge)
+
+### Related Topic
+
+`String` `Stack` `Simulation`
+
+### Code
+
+```cpp
+class Solution {
+public:
+    string clearDigits(string s) {
+        stack<char> a;
+        for (auto i : s) {
+            if (i - '0' >= 0 && i - '0' <= 9) {
+                if (!a.empty()) {
+                    a.pop();
+                }
+            }
+            else
+            a.push(i);
+        }
+        string ans = "";
+        while(!a.empty())
+        {
+            ans+=a.top();
+            a.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
 ```
