@@ -361,3 +361,30 @@ public:
     }
 };
 ```
+
+## 11)  [Remove All Occurrences of a Substring](https://leetcode.com/problems/remove-all-occurrences-of-a-substring/)
+
+### Difficulty
+
+![](https://img.shields.io/badge/Easy-green?style=for-the-badge)
+
+### Related Topic
+
+`String` `Stack` `Simulation`
+
+### Code
+
+```cpp
+class Solution {
+public:
+    string removeOccurrences(string s, string part) {
+        int index = s.find(part);
+        while (index != string::npos) {
+            s.erase(index, part.length());
+            index = s.find(part);
+        }
+        return s;
+    }
+};
+
+```
